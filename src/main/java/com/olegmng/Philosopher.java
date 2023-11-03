@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Philosopher implements Runnable {
     private int num = 0;
-//    private Object monitor;
+    //    private Object monitor;
     boolean fullEat = false;
 
     public Philosopher(int num) {
@@ -18,7 +18,7 @@ public class Philosopher implements Runnable {
 
     public int toEat(int num) throws InterruptedException {
         Thread.sleep(500);
-        System.out.println("Философ начал кушать " + num +"-й раз"+Thread.currentThread());
+        System.out.println("Философ из потока " + Thread.currentThread() + " кушает " + num + "-й раз");
 //        num.incrementAndGet();
         num++;
         return num;
@@ -38,21 +38,25 @@ public class Philosopher implements Runnable {
         while (!fullEat) {
 //            synchronized (monitor) {
 //                System.out.println(monitor);
-                try {
-                    if(num == 2) fullEat = true;
-                    Thread.sleep(500);
+            try {
+                if (num == 2) fullEat = true;
+                num++;
+                toEat(num);
+
+                Thread.sleep(500);
+
+                System.out.println("Философ из потока " + Thread.currentThread() + " размышляет");
 //                    synchronized (monitor){
-                    num++;
-                        toEat(num);
+
 //                        inc();
-                        System.out.println(num);
+//                System.out.println(num);
 //                        notify();
 //                        wait();
 
 //                    }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 //            }
 
         }
