@@ -1,5 +1,7 @@
 package com.olegmng;
 
+
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Philosopher implements Runnable {
@@ -13,12 +15,14 @@ public class Philosopher implements Runnable {
     }
 
     public void toThink() {
+        System.out.println("Философ из потока " + Thread.currentThread() + " кушает " + num + "-й раз");
 
     }
 
     public int toEat(int num) throws InterruptedException {
         Thread.sleep(500);
-        System.out.println("Философ из потока " + Thread.currentThread() + " кушает " + num + "-й раз");
+        toThink();
+//        System.out.println("Философ из потока " + Thread.currentThread() + " кушает " + num + "-й раз");
 //        num.incrementAndGet();
         num++;
         return num;
