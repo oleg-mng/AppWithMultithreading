@@ -27,19 +27,50 @@ class TThread implements Runnable{
     }
 }
 
-public class MultiThreadDemo {
-    public static void main(String[] args) {
-        new TThread("Первый");
-        new TThread("Второй");
-        new TThread("Третий");
+//public class MultiThreadDemo {
+//    public static void main(String[] args) {
+//        new TThread("Первый");
+//        new TThread("Второй");
+//        new TThread("Третий");
+//
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            System.out.println("Главный поток прерван");
+//        }
+//        System.out.println("Главный поток завершен");
+//
+//
+//    }
+//}
 
+class DemoJoin{
+    public static void main(String[] args) {
+
+        TThread thread1 = new TThread("thread1");
+        TThread thread2 = new TThread("thread2");
+        TThread thread3 = new TThread("thread3");
+
+        System.out.println("Поток 1 запущен: "+ thread1.t.isAlive());
+        System.out.println("Поток 2 запущен: "+ thread2.t.isAlive());
+        System.out.println("Поток 3 запущен: "+ thread3.t.isAlive());
+        // ожидаем завершения потоков
         try {
-            Thread.sleep(10000);
+            System.out.println("ожидание зашершения потоков");
+            thread1.t.join();
+            thread2.t.join();
+            thread3.t.join();
         } catch (InterruptedException e) {
-            System.out.println("Главный поток прерван");
+            System.out.println("Главный поток прерван");;
         }
+
+        System.out.println("Поток 1 запущен: "+ thread1.t.isAlive());
+        System.out.println("Поток 2 запущен: "+ thread2.t.isAlive());
+        System.out.println("Поток 3 запущен: "+ thread3.t.isAlive());
         System.out.println("Главный поток завершен");
 
 
     }
+
+
 }
