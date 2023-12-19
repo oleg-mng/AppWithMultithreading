@@ -21,8 +21,8 @@ class MainMail {
     }
 
     static void asyncSend(MailSender sender, List<String> messages) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        ExecutorService executor = Executors.newFixedThreadPool(messages.size());
         for (String message : messages) {
 //            sender.send(message);
             executor.submit(()->sender.send(message));
