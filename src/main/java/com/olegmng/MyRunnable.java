@@ -6,4 +6,8 @@ public class MyRunnable implements Runnable {
         System.out.println("2.Начал работать поток: " + Thread.currentThread());
 
     }
+
+    public static void main(String[] args) {
+        new MyRunnable().run();
+    }
 }
